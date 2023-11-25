@@ -1,21 +1,33 @@
 import streamlit as st
+from PIL import Image
+import os
+import pandas as pd
 
 title = 'מטבחסן'
 
 st.title(title)
 
-st.image('cola.jpg', 'the cocoa cola', width=150)
 
-st.number_input("כמה קולה יש", 0)
+def handle_upload():
+    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
-st.image('cola.jpg', 'the cocoa cola', width=150)
+    if uploaded_file:
 
-st.number_input("כמה קולה יש", 0, key=1)
+        image = Image.open(uploaded_file)
+        st.image(image, caption='Uploaded Image.', use_column_width=True)
+        name = st.text_input("What the name of the product")
+        amount = st.number_input('Enter a amount ', 0)
 
-st.image('cola.jpg', 'the cocoa cola', width=150)
+        if st.button("Save Data"):
+            # Make sure the directory exists
+            os.makedirs('Images', exist_ok=True)
 
-st.number_input("כמה קולה יש", 0, key=2)
+            image_filename = f'{uploaded_file.name}'
+            image_path = os.path.join('Images', image_filename)
+            image.save(image_path)
+            st.success('Data Save')
+            return [name, uploaded_file.name, amount]
+    return None
 
-st.image('cola.jpg', 'the cocoa cola', width=150)
 
-st.number_input("כמה קולה יש", 0, key=3)
+handle_upload()
