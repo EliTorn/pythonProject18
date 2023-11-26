@@ -19,7 +19,7 @@ def handle_upload():
         st.image(product['picture'])
 
     if uploaded_file:
-
+        image_bit = uploaded_file.read()
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image.', use_column_width=True)
         name = st.text_input("What the name of the product")
@@ -27,7 +27,7 @@ def handle_upload():
 
         if st.button("Save Data"):
             # Make sure the directory exists
-            connect(name, uploaded_file.read(), amount)
+            connect(name, image_bit, amount)
 
             st.success('Data Save')
 
