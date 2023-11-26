@@ -1,5 +1,7 @@
 import streamlit as st
+from app import connect, show
 from PIL import Image
+
 import os
 import pandas as pd
 
@@ -10,6 +12,11 @@ st.title(title)
 
 def handle_upload():
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
+    data = show()
+    for product in data:
+        st.write(product['name'])
+        st.write(product['amount'])
+        st.image(product['picture'])
 
     if uploaded_file:
 
@@ -20,14 +27,9 @@ def handle_upload():
 
         if st.button("Save Data"):
             # Make sure the directory exists
-            os.makedirs('Images', exist_ok=True)
+            connect(name, uploaded_file.read(), amount)
 
-            image_filename = f'{uploaded_file.name}'
-            image_path = os.path.join('Images', image_filename)
-            image.save(image_path)
             st.success('Data Save')
-            return [name, uploaded_file.name, amount]
-    return None
 
 
 handle_upload()
