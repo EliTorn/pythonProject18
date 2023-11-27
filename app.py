@@ -1,6 +1,7 @@
 import pymongo
 
-client = pymongo.MongoClient('mongodb+srv://Eli:CXtvUDJNR2BZJLi@cluster0.1xtkxye.mongodb.net/')
+client = pymongo.MongoClient(
+    'mongodb+srv://eli:z03kqfXTug2FhxqN@cluster0.1xtkxye.mongodb.net/?retryWrites=true&w=majority')
 
 # Create a database
 db = client["inventory"]
