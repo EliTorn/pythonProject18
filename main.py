@@ -9,15 +9,27 @@ title = 'מטבחסן'
 
 st.title(title)
 
+data = show()
+# Initialize an empty list to store rows
+rows = []
+
+# Iterate through the data list
+for product in data:
+    # Create a row with the product's information
+    row = [
+        st.image(product['picture'], width=100, caption=product['name']),
+        st.write(product['amount'])
+    ]
+
+    # Append the row to the list of rows
+    rows.append(row)
+
+# Create a single table using the list of rows
+st.table(rows)
+
 
 def handle_upload():
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
-    data = show()
-    for product in data:
-        #st.write(product['name'])
-        st.image(product['picture'], width=100, caption=product['name'])
-        st.write(product['amount'])
-
 
     if uploaded_file:
         image_bit = uploaded_file.read()
@@ -32,5 +44,4 @@ def handle_upload():
 
             st.success('Data Save')
 
-
-handle_upload()
+    handle_upload()
