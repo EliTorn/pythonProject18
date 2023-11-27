@@ -14,9 +14,10 @@ def handle_upload():
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
     data = show()
     for product in data:
-        st.write(product['name'])
+        #st.write(product['name'])
+        st.image(product['picture'], width=100, caption=product['name'])
         st.write(product['amount'])
-        st.image(product['picture'])
+
 
     if uploaded_file:
         image_bit = uploaded_file.read()
